@@ -1,5 +1,9 @@
 require_relative 'lib/2048.rb'
 require 'io/console'
+require 'rubygems'
+require 'bundler'
+
+Bundler.require()
 
 module TwentyFortyEight
 
@@ -8,9 +12,7 @@ module TwentyFortyEight
     def initialize
       @board = Board.new
       @board.print
-
       read_key while (true)
-
     end
 
     def read_key
@@ -25,7 +27,11 @@ module TwentyFortyEight
           @board.move('right')
         when "\e[D"
           @board.move('left')
-        when "\u0003"
+        when 'R'
+          @board.reset
+        when 'D'
+          @board.demo
+        when 'Q'
           puts 'Bye bye'
           exit 0
       end
