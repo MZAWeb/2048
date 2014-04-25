@@ -2,6 +2,7 @@ module TwentyFortyEight
 
   class Cell
     attr_accessor :value
+    attr_accessor :winner
 
     COLORS = {
         2 => :red,
@@ -17,7 +18,7 @@ module TwentyFortyEight
         2048 => :light_cyan,
     }
 
-    def initialize(value = 0, winner =2048)
+    def initialize(value , winner)
       @value = value
       @winner = winner
     end
