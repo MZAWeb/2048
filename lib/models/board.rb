@@ -14,7 +14,7 @@ module TwentyFortyEight
     end
 
     def demo
-      @grid = Array.new(@grid_size) { Array.new(@grid_size) { Cell.new 2**rand(@grid_size+8), 2**(@grid_size+7) } }
+      @grid = Array.new(@grid_size) { Array.new(@grid_size) { Cell.new 2**rand(@grid_size+7), 2**(@grid_size+7) } }
     end
 
     def move(side)
@@ -106,7 +106,7 @@ module TwentyFortyEight
     end
 
     def lost?
-      empty_cells.empty?
+      empty_cells.empty? && !merge_possible?
     end
 
     def win?
@@ -115,8 +115,26 @@ module TwentyFortyEight
     end
 
     def merge_possible?
-      @grid.each_with_index do |row, y|
+      @grid.each do |row|
+        return true if row.chunk { |c| c.value }.map(&:first).count != row.count
       end
+
+      # flip the grid if it's moving the Y axis so we can operate as if it's the X axis
+      @grid = @grid.transpose
+
+      @grid.each do |row|
+        if row.chunk { |c| c.value }.map(&:first).count != row.count
+          # flip back
+          @grid = @grid.transpose
+          return true
+        end
+      end
+
+      # flip back
+      @grid = @grid.transpose
+
+      return false
+
     end
 
     # Helper to create a new empty cell
