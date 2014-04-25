@@ -8,13 +8,11 @@ module TwentyFortyEight
       @side = side
     end
 
-    # get non-empty cells for the current row
-    def remove_empty!
-      @value.reject! { |x| x.empty? }
-    end
-
     def empty?
-      @value.empty?
+      @value.each do |c|
+        return false if !c.empty?
+      end
+      return true
     end
 
     def eql?(arr)
@@ -22,6 +20,10 @@ module TwentyFortyEight
     end
 
     def merge!(grid_size, &block)
+
+      # remove the empty cells so we group
+      # the cells with values together
+      remove_empty!
 
       # Reverse if it's a right move, to operate as if it's a left move...
       @value.reverse! if @side=='right' || @side =='down'
@@ -44,6 +46,11 @@ module TwentyFortyEight
     end
 
     private
+
+    # get non-empty cells for the row
+    def remove_empty!
+      @value.reject! { |x| x.empty? }
+    end
 
     # fill to a given length with the given block
     def pad!(grid_size, &block)

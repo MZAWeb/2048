@@ -28,10 +28,6 @@ module TwentyFortyEight
 
         new_row = Row.new(row.dup, side)
 
-        # remove the empty cells so we group
-        # the cells with values together
-        new_row.remove_empty!
-
         # Nothing to do if the row is all empty cells
         next if new_row.empty?
 
@@ -92,11 +88,6 @@ module TwentyFortyEight
       empty_cells_hash
     end
 
-    def win?
-      @grid.each { |row| row.each { |cell| return true if cell.win? } }
-      return false
-    end
-
     # Injects a random cell in a random empty cell
     def inject_random_cell
       e = empty_cells
@@ -115,8 +106,17 @@ module TwentyFortyEight
     end
 
     def lost?
-      #TODO: possible_merges?
       empty_cells.empty?
+    end
+
+    def win?
+      @grid.each { |row| row.each { |cell| return true if cell.win? } }
+      return false
+    end
+
+    def merge_possible?
+      @grid.each_with_index do |row, y|
+      end
     end
 
     # Helper to create a new empty cell
