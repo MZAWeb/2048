@@ -21,22 +21,21 @@ module TwentyFortyEight
       return true if arr == @value
     end
 
-    # This needs refactor when I'm not sleepy and stupid
     def merge!(grid_size, &block)
 
       # Reverse if it's a right move, to operate as if it's a left move...
       @value.reverse! if @side=='right' || @side =='down'
 
-      @value.each_with_index do |cell, i|
-        next if cell.empty?
-        break if i == @value.count-1
+      @value.each_cons(2).to_a.each_with_index do |duo, i|
 
-        if cell.eql? @value[i+1]
-          cell.increment!
-          @value[i+1] = block.call
-        end
+        next if !duo[0].eql? duo[1]
+
+        duo[0].increment!
+        @value.delete_at(i+1)
+
       end
 
+      # Complete the row with empty cells
       pad!(grid_size, &block)
 
       #...and reverse back

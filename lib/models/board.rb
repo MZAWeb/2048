@@ -81,6 +81,7 @@ module TwentyFortyEight
 
     private
 
+    # returns a hash with x,y points to empty cells
     def empty_cells
       empty_cells_hash = {}
       @grid.each_with_index do |row, y|
@@ -96,6 +97,7 @@ module TwentyFortyEight
       return false
     end
 
+    # Injects a random cell in a random empty cell
     def inject_random_cell
       e = empty_cells
       return if e.empty?
@@ -107,16 +109,17 @@ module TwentyFortyEight
 
     end
 
+    # Builds the basic grid
     def default_grid
       Array.new(@grid_size) { Array.new(@grid_size) { new_cell } }
     end
 
     def lost?
-      #TODO: win?
       #TODO: possible_merges?
       empty_cells.empty?
     end
 
+    # Helper to create a new empty cell
     def new_cell
       Cell.new 0, 2**(@grid_size+7)
     end
