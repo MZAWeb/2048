@@ -6,7 +6,7 @@ This is my first Ruby code ever, so please feel free to critique to help me impr
 My plan is to implement a iOS version using RubyMotion, but first I wanted to make sure I had the game logic figured out, so went for a console version.
 
 
-![2048](http://f.cl.ly/items/2B390W450E43422x1u2a/Screen%20Shot%202014-04-25%20at%2012.45.39%20AM.png)
+![2048](http://f.cl.ly/items/113X2F323I1Z2r1Y143t/Screen%20Shot%202014-04-25%20at%201.04.21%20AM.png)
 
 ### How to install
 
