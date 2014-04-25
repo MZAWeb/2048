@@ -14,5 +14,5 @@ My plan is to implement a iOS version using RubyMotion, but first I wanted to ma
 2. `bundle install`
 3. `ruby 2048.rb`
 
-Only tested in Ruby 2.1.1
+Only tested in Ruby 2.1.1 on OSX
 
