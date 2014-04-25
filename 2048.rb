@@ -1,4 +1,6 @@
-require_relative 'lib/2048.rb'
+lib_path = File.expand_path(File.dirname(__FILE__))
+Dir[lib_path + '/lib/models/*.rb'].each { |file| require file }
+
 require 'io/console'
 require 'rubygems'
 require 'bundler'
