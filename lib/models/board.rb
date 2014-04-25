@@ -14,7 +14,7 @@ module TwentyFortyEight
     end
 
     def demo
-      @grid = Array.new(@grid_size) { Array.new(@grid_size) { Cell.new 2**rand(@grid_size+7), 2**(@grid_size+7) } }
+      @grid = Array.new(@grid_size) { Array.new(@grid_size) { Cell.new 2**rand(@grid_size+8), 2**(@grid_size+7) } }
     end
 
     def move(side)
@@ -26,27 +26,22 @@ module TwentyFortyEight
 
       @grid.each_with_index do |row, y|
 
-        new_row = Row.new(row.dup)
+        new_row = Row.new(row.dup, side)
 
+        # remove the empty cells so we group
+        # the cells with values together
         new_row.remove_empty!
 
+        # Nothing to do if the row is all empty cells
         next if new_row.empty?
 
-        # Reverse if it's a right move, to operate as if it's a left move
-        new_row.reverse! if side=='right' || side =='down'
-
-        new_row.merge! do
+        # Merge equal cells together
+        new_row.merge! @grid_size do
           new_cell
         end
 
-        new_row.pad!(@grid_size) do
-          new_cell
-        end
-
-        # Reverse back
-        new_row.reverse! if side=='right' || side =='down'
-
-        # If the row actually changed
+        # Check if the row actually changed and if so
+        # replace it with the newly generated row
         if !@grid[y].eql? new_row
           changed=true
           @grid[y] = new_row.value
